@@ -181,6 +181,3 @@ Click "Copy login command"
 Click "Display Token"
 Copy the full oc login --token=... --server=... line
 
-
-dilsecodie
-password -Techno@1231012310
