@@ -103,3 +103,56 @@ To run the automated unit and integration tests:
 ```bash
 mvn test
 ```
+
+---
+
+## ☁️ Deploying to Red Hat OpenShift
+
+Since the code is hosted on Git, deploying to OpenShift is incredibly straightforward using OpenShift's **Source-to-Image (S2I)** feature. OpenShift will automatically pull the code from Git, build the Maven project, create a container image, and deploy it.
+
+### Prerequisites
+* You must have access to an OpenShift Cluster.
+* The `oc` (OpenShift CLI) tool installed and logged in.
+
+### Deployment Steps (From Git)
+
+1. **Login to your OpenShift cluster:**
+   ```bash
+   oc login --token=<your-token> --server=<your-cluster-url>
+   ```
+
+2. **Create a new project (Namespace):**
+   ```bash
+   oc new-project mortgage-bridge
+   ```
+
+3. **Deploy directly from your Git repository:**
+   *(Replace `<YOUR_GIT_REPO_URL>` with the actual HTTP/HTTPS Git URL of this repository)*
+   ```bash
+   oc new-app registry.access.redhat.com/ubi8/openjdk-17~<YOUR_GIT_REPO_URL> --name=mortgage-api
+   ```
+   *OpenShift will now start a build pod to compile the Spring Boot app using Maven.*
+
+4. **Watch the build logs (Optional but recommended):**
+   ```bash
+   oc logs -f bc/mortgage-api
+   ```
+
+5. **Expose the service to the internet:**
+   Once the build is complete and the pod is running, create a Route so external clients can access the API:
+   ```bash
+   oc expose svc/mortgage-api
+   ```
+
+6. **Get your live URL:**
+   ```bash
+   oc get route mortgage-api
+   ```
+   *Copy the `HOST/PORT` URL from the output. You can now access your Swagger UI at `http://<ROUTE_URL>/swagger-ui.html`!*
+
+### Alternative: Dockerfile Deployment
+If you prefer building via the included `Dockerfile`:
+```bash
+oc new-app --strategy=docker <YOUR_GIT_REPO_URL> --name=mortgage-api
+oc expose svc/mortgage-api
+```
