@@ -180,10 +180,13 @@ In the OpenShift Web Console, click your username (top-right corner)
 Click "Copy login command"
 Click "Display Token"
 Copy the full oc login --token=... --server=... line
+
+  ```bash  
 oc new-project mortgage-bridge
 oc project dilsecodie-dev
 oc new-app registry.access.redhat.com/ubi8/openjdk-17~https://github.com/codiebyheaart/MortgageBridge --name=mortgage-api
 oc logs -f buildconfig/mortgage-api
 oc expose service/mortgage-api
 oc get route mortgage-api
+   ```
 
