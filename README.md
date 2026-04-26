@@ -110,9 +110,17 @@ mvn test
 
 Since the code is hosted on Git, deploying to OpenShift is incredibly straightforward using OpenShift's **Source-to-Image (S2I)** feature. OpenShift will automatically pull the code from Git, build the Maven project, create a container image, and deploy it.
 
-### Prerequisites
-* You must have access to an OpenShift Cluster.
-* The `oc` (OpenShift CLI) tool installed and logged in.
+### Step 0: Get a Free OpenShift Cluster (Red Hat Developer Sandbox)
+If you don't have an OpenShift cluster, you can get a free 30-day sandbox environment from Red Hat to demo this project.
+
+1. **Register for a free Red Hat account:** Go to the [Red Hat Developer Sandbox Registration Page](https://sso.redhat.com/auth/realms/redhat-external/login-actions/registration?client_id=crtoolchain-public&tab_id=7SLOR9dHQSw&client_data=eyJydSI6Imh0dHBzOi8vc2FuZGJveC5yZWRoYXQuY29tL2FwaS9hdXRoL29pZGMvaGFuZGxlci9mcmFtZSIsInJ0IjoiY29kZSIsInN0IjoiNmU2ZjZlNjM2NTNkNDI1NzY3NDY2YzQ3NzE1MzZmMzg1YTYyMzY3NzU2NjE3ODU4NmI3OTZhNzcyNTMzNDQyNTMzNDQyNjY1NmU3NjNkNzA3MjZmNjQ3NTYzNzQ2OTZmNmUyNjZmNzI2OTY3Njk2ZTNkNjg3NDc0NzA3MzI1MzM0MTI1MzI0NjI1MzI0NjczNjE2ZTY0NjI2Zjc4MmU3MjY1NjQ2ODYxNzQyZTYzNmY2ZDI2NzI2NTY0Njk3MjY1NjM3NDU1NzI2YzNkNjg3NDc0NzA3MzI1MzM0MTI1MzI0NjI1MzI0NjczNjE2ZTY0NjI2Zjc4MmU3MjY1NjQ2ODYxNzQyZTYzNmY2ZDI1MzI0NjI1MzM0NjY5NmU3NDYzNmQ3MDI1MzM0NDM3MzAzMTMzNjEzMDMwMzAzMDMwMzIzNjQ3NWE0ZDQxNDEzMjI2NjY2YzZmNzczZDcyNjU2NDY5NzI2NTYzNzQyNjczNjM2ZjcwNjUzZDZmNzA2NTZlNjk2NDJiNzA3MjZmNjY2OTZjNjUyYjY1NmQ2MTY5NmMifQ) and create an account.
+2. **Access your Sandbox:** Once registered and verified, launch your OpenShift Developer Sandbox.
+3. **Get your Login Command:** 
+   - Click your username in the top right corner of the OpenShift Web Console.
+   - Click **"Copy login command"**.
+   - Click **"Display Token"**. This will give you the exact `oc login --token=...` command you need.
+4. **Install the `oc` CLI tool:**
+   - Download the OpenShift Command Line Interface (`oc`) from the help menu (?) in the top right of the Web Console, under "Command Line Tools", and add it to your system PATH.
 
 ### Deployment Steps (From Git)
 
@@ -156,3 +164,23 @@ If you prefer building via the included `Dockerfile`:
 oc new-app --strategy=docker <YOUR_GIT_REPO_URL> --name=mortgage-api
 oc expose svc/mortgage-api
 ```
+
+
+### Download oc CLI
+Go to: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/
+Download for your OS:
+
+Windows → openshift-client-windows.zip
+Mac → openshift-client-mac.tar.gz
+Linux → openshift-client-linux.tar.gz
+
+### Step 2 — Get your login command from the console
+
+In the OpenShift Web Console, click your username (top-right corner)
+Click "Copy login command"
+Click "Display Token"
+Copy the full oc login --token=... --server=... line
+
+
+dilsecodie
+password -Techno@1231012310
